@@ -25,11 +25,11 @@ act_lbl<-fread("./UCI HAR Dataset/activity_labels.txt")
 
 
 #merge train and test sets (x, y and subjects)
-x_train<-x_train[,grepl("mean|std",ftr$V2),with=FALSE]
-names(x_train)<-ftr$V2[grepl("mean|std",ftr$V2)]
+x_train<-x_train[,grepl("mean\\(\\)|std\\(\\)",ftr$V2),with=FALSE]
+names(x_train)<-ftr$V2[grepl("mean\\(\\)|std\\(\\)",ftr$V2)]
 names(y_train)<-"Activity class"
-x_test<-x_test[,grepl("mean|std",ftr$V2),with=FALSE]
-names(x_test)<-ftr$V2[grepl("mean|std",ftr$V2)]
+x_test<-x_test[,grepl("mean\\(\\)|std\\(\\)",ftr$V2),with=FALSE]
+names(x_test)<-ftr$V2[grepl("mean\\(\\)|std\\(\\)",ftr$V2)]
 names(y_test)<-"Activity class"
 train<-cbind(x_train,y_train,sub_train)
 test<-cbind(x_test,y_test,sub_test)
@@ -41,8 +41,8 @@ names(act_lbl)[1]<-"Activity class"
 dataSet<-merge(dataSet,act_lbl,by="Activity class",all=TRUE)
 
 #add data labels
-names(dataSet)[82]="Activity label"
-names(dataSet)[81]="Subject"
+names(dataSet)[69]="Activity label"
+names(dataSet)[68]="Subject"
 
 #create output file with summary
-write.table(aggregate(dataSet[,2:80],dataSet[,81:82],mean),"tidySet.txt", row.name=FALSE)
+write.table(aggregate(dataSet[,2:67],dataSet[,68:69],mean),"tidySet.txt", row.name=FALSE)
